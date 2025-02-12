@@ -50,20 +50,9 @@ require([
 	/* frm related */
     "dojo/_base/lang", "dijit/registry", "dojox/form/Manager",
 	'dijit/Dialog',
-	'gridx/tests/support/data/TreeColumnarTestData',
-/*	'gridx/tests/support/data/TreeNestedTestData', dereferenced in favor of local 4 deltas + categUnSelecable*/
-	'./gridx_Styling/TreeNestedTestData.js',
-	'gridx/tests/support/stores/ItemFileWriteStore',
-	'gridx/modules/ColumnWidth',
-	'gridx/modules/Body',
-	'gridx/allModules',
-	'gridx/Grid',
-	'gridx/core/model/cache/Sync',
-	'gridx/core/model/cache/Async',
-	/*For the Unsel 	'gridx/modules/select/Row',
-	'gridx/modules/extendedSelect/Row',*/
 	'dojo/domReady!'
-], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Menu, MenuItem, Button, ComboButton, Select, lang, registry, Mngr, Dialog, dataSource, nestedDataSource, storeFactory, ColumnWidth, Body, modules, Grid){
+], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Menu, MenuItem, Button, 
+	    ComboButton, Select, lang, registry, Mngr, Dialog){
 
 	window.showFrm = function(){
 	    myFrmDialog.show();
