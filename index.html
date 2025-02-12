@@ -1,38 +1,146 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Mike's Blog</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+
+	<style type="text/css">
+		.gridx {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/common.css">
+	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+
+<!--BEGIN Frm related assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+.dijitDialogPaneContent {
+    width: 800px !important;
+    height: 600px !important;
+}
+
+		.makeYellow		{ background-color: #ffa; }
+	</style>
+
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/commonAux.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/FrmMngrExt.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/pvDlg.js"></script>
+<!--END Frm related assets-->
+
+<script>
+require([
+	'dojo/parser',
+	'dojo/on', 'dojo/dom', 'dojo/mouse', /*@mbi'dojo/dom-Class',*/
+	'dojo/_base/Deferred', 'dijit/Tooltip', 'dijit/Toolbar', "dijit/Menu", "dijit/MenuItem",
+	'dijit/form/Button', "dijit/form/ComboButton", 'dijit/form/Select', 
+	/* frm related */
+    "dojo/_base/lang", "dijit/registry", "dojox/form/Manager",
+	'dijit/Dialog',
+	'gridx/tests/support/data/TreeColumnarTestData',
+/*	'gridx/tests/support/data/TreeNestedTestData', dereferenced in favor of local 4 deltas + categUnSelecable*/
+	'./gridx_Styling/TreeNestedTestData.js',
+	'gridx/tests/support/stores/ItemFileWriteStore',
+	'gridx/modules/ColumnWidth',
+	'gridx/modules/Body',
+	'gridx/allModules',
+	'gridx/Grid',
+	'gridx/core/model/cache/Sync',
+	'gridx/core/model/cache/Async',
+	/*For the Unsel 	'gridx/modules/select/Row',
+	'gridx/modules/extendedSelect/Row',*/
+	'dojo/domReady!'
+], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Menu, MenuItem, Button, ComboButton, Select, lang, registry, Mngr, Dialog, dataSource, nestedDataSource, storeFactory, ColumnWidth, Body, modules, Grid){
+
+	window.showFrm = function(){
+	    myFrmDialog.show();
+	    var frm = registry.byId("form");
+	    frm["disable"]();
+	}
+	window.editFrm = function(){
+	    var frm = registry.byId("form");
+	    frm["enable"]();
+	}
+
+	const gfxCreateBtnHandler = (e) => {
+	    myFrmDialog.show();
+			(registry.byId('frmTBpv')).set('disabled', true);
+	    frm["enable"]();
+			alert('createBtnTibbie');
+	}
+
+	var gfxCreateBtn = new Button({
+		label: 'Create',
+		iconClass:'gridxCreateIcon',
+		onClick:gfxCreateBtnHandler
+	});
 
 
-Assets:
-- Curr ver (Feb 11) uncommented w/core fns embedded 2 gist
-- Curr ver (Feb 11) reduced (no console debgs) for inclusion
-- Gif of debug stmts, freeze 4 details or go 2 end & scroll up 2 see outpt
+	testFetch = function(){
+						window.runFetch('fetchPVs');
+	};
 
+	parser.parse();
+});
+</script>
 
-Lead
+</head>
 
-What it is
+<body class='claro'>
+	<h1 class='title' tabindex='0' onfocus='this.style.color="blue"' onblur='this.style.color=""'>
+Mike's Blog
+	</h1>
+
+  Assets:<br>
+  <ul>
+    <li>Curr ver (Feb 11) uncommented w/core fns embedded 2 gist</li>
+    <li>Curr ver (Feb 11) reduced (no console debgs) for inclusion</li>
+    <li>Gif of debug stmts, freeze 4 details or go 2 end & scroll up 2 see outpt</li>
+  </ul>
+<hr>
+  <br>
+<h3>Lead</h3>
+<br>
+<h3>What it is</h3>
   refs, can get heavy, burritos
-
-Hands on toot
+<br>
+<h3>Hands on toot</h3>
   No heavy stuff.  You don't need to, but you can
-
-Model Based
+<br>
+<h3>Model Based</h3>
   Easy to reason about, use Spreadsheet txt + link; use Hughes' img + link, Easy to connect to app's functionality.
-
-The Func we nd 2 test, UI
+<br>
+<h3>The Func we nd 2 test, UI</h3>
   Desc + snapsht
-
-The FsC example
+<br>
+<h3>The FsC example</h3>
   run/grok/info re: svr live; why refreshes will prod diff output
-
-Customizing
+<br>
+<h3>Customizing</h3>
   1st look @ runnable; what's changed & why
   Blding the model, Cmds/ops
-
-Run
+<br>
+<h3>Run</h3>
   The terse output + gif of consoleDebg
-
-Connecting 2 the Production System
+<br>
+<h3>Connecting 2 the Production System</h3>
   Dir of snaps, move 2 end
-
-Add Cmds 4 openWins
+<br>
+<h3>Add Cmds 4 openWins</h3>
   Also renaming, poss; then chain em all.
-
+<br>
+</body>
+</html>
