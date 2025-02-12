@@ -122,6 +122,20 @@ Mike's Blog
 <br>
 <h3>Model Based</h3>
   Easy to reason about, use Spreadsheet txt + link; use Hughes' img + link, Easy to connect to app's functionality.
+
+<br>
+	The developers at Row Zero formerly worked at AWS and used tools like QuickCheck to formally verify the S3 filesystem.<br>
+	Here is how they define Model-Based Testing in their excellent PBT <a href='https://grantslatton.com/rowzero-property-testing'>article</a>:<br>
+<i>
+Blackbox reference-model testing is the best and most powerful method. This involves testing the real implementation of something against a reference model. Typically, the reference model will be much less efficient than the real one, or lacking some functionality.
+	<br>
+
+An example of this is how we store the values of the cells in the spreadsheet. You could imagine a solution that is just a giant hash table whose key is the cell name, and the value is the contents of that cell. In practice, we do something much more efficient than this, but our optimized implementation should still behave like a simple hash table.
+<br>
+So we can make a test that does random cell inserts, updates, and deletes to the real data structure, and a simple hash table reference. Then, at the end of the test, we compare them to make sure they have the same values in each cell.
+</i>
+<br>
+
 <br>
 <h3>The Func we nd 2 test, UI</h3>
   Desc + snapsht
@@ -142,5 +156,50 @@ Mike's Blog
 <h3>Add Cmds 4 openWins</h3>
   Also renaming, poss; then chain em all.
 <br>
+
+<hr>
+	Links from the PBT mBox<p>
+
+<br>dotNet race condition testing: (recent post ~ 21)
+<br>https://stackoverflow.com/questions/68222989/do-race-conditions-exist-when-using-just-async-await
+<br>
+Wlaschin PBT (fmtd; we have pgs 1-3): PBT_wlaschin.64 (this plnk) (removed)
+(condensed w/images here: https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html)
+<br>
+Haskell SUT state-machine testing tutorial: https://github.com/stevana/property-based-testing-stateful-systems-tutorial/tree/main
+<br>
+Property-Based Testing Against a Model of a Web Application
+<br>August 11, 2022 (https://concerningquality.com/model-based-testing/)
+<br>
+See also (ALL seem relevant; chk appendices for more):
+<br>
+* 2016 Mysteries of Dropbox: Property-Based Testing of a Distributed Synchronization Service (Hughes et al., 11 pp)
+<br>
+x How to <a hre='https://research.chalmers.se/publication/517894/file/517894_Fulltext.pdf'>Specify</a> it! (John Hughes) : A Guide to Writing Properties of Pure Functions.
+<br>
+x John Hughes: ~2006 Experiences with QuickCheck: Testing the <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>Hard Stuff</a> and Staying Sane
+<br>
+		[This paper introduces Quviq QuickCheck (Erlang port), and in particular the extensions made for testing stateful code, via a toy example in C. 
+It goes on to describe the largest QuickCheck project to date, which developed acceptance tests for AUTOSAR C code on behalf of Volvo Cars.
+Finally it explains a race detection method that nailed a notorious bug plaguing Klarna, northern Europe’s market leader in invoicing systems for
+e-commerce. <br>
+Together, these examples give a reasonable overview of the way QuickCheck has been used in industrial practice.]
+<br>
+* <a href='https://dl.acm.org/doi/10.1145/3477132.3483540'>Paper</a>: Using Lightweight Formal Methods to Validate a Key-Value Storage Node in Amazon S3 
+<br>This paper reports our experience applying lightweight formal methods to validate the correctness of ShardStore, a new key-value storage node implementation for the Amazon S3 cloud object storage service.
+<br>
+
+FsChk related (from <a href='https://fscheck.github.io/FsCheck//LearningResources.html'>fsChk Repo</a>)
+<br>* <a href='https://www.compositional-it.com/news-blog/proving-function-correctness-with-property-based-tests/'>Blog</a> article (Sept '24): Proving function correctness with property-based tests
+<br>In this blog post, Matt shows how property-based tests and carefully chosen properties can be used to "prove" function correctness.
+<br>
+* FsChk <a href='https://www.nuget.org/packages/FsCheck#versions-body-tab'>3.0</a> (2025) 
+<br><a href='https://wqplease.com/p/fscheck-3-property-based-testing-in-c-3ba4a2a50388'>(uses C#)</a>
+<br>* <a href='http://opcoast.com/demos/fsharp/part3.html'>Uses</a> of FsCheck to test functions that arise in development of a branch and bound algorithm.
+<br>* <a href='https://fsharpforfunandprofit.com/posts/property-based-testing-2/'>Wlaschin</a>: Choosing properties for property-based testing
+<br>“what properties should I use? I can’t think of any!”
+<br>* <a href='https://fscheck.github.io/FsCheck//TipsAndTricks.html'>Tips and Tricks</a>
+<br>Perhaps surprisingly, FsCheck can generate random functions, Func and Actions. As a result, it can check properties of functions...
+<br>	
 </body>
 </html>
