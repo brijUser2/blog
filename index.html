@@ -140,12 +140,42 @@ their own subspeciality and perspective.  Which is why there are so many differe
 for FP concepts, most of them accurate.
 <p>
 To make the difference clear, please allow me to offer an illustration:<br>
-Say you are doing pair programming with someone named <a href=''>Bartosz</a>, <a href=''>Tom Petricek</a> or <a href=''>Rich Hickey</a>
-	
+Say you are doing pair programming with someone named <a href=''>Bartosz</a>, 
+<a href=''>Tom Petricek</a> or <a href=''>Rich Hickey</a>.<br>
+The two of you are working on a simple CRUD app in a large closure which looks like this:<br>
+   static void Closure = fun (params -> 
+	Client thisClient = getCli(params);
+	CliLocation thisLoc = 
+		Locations
+		.filter(thisClient)
+		.toList();
+	CliOrders thisCliOrders = 
+	Orders
+	.toMap()
+	.stream()
+	.forEach( o:order -> itemPriceAfterTaxes(o));
+   );
+Quite straight-forward, correct?  You are just adding some business logic updates.<br>
+Suddenly the FP guy next to you goes "Heh heh."<br>
+	You look at him inquiringly.  He says: "You know what?  The list lengths of ClientOrders will be the same as that of the ClientLocations."<br>
+	"What?" you ask.  "What do those two things have to do with each other?"<br>
+	He'll ask you to check it with a debug statement.  You are intrigued.  You add the debug statement and it's true: both lists have 531 elements.<br>
+'<i>This is insane</i>,' you think.<br>
+	"But the orders have nothing to do with the locations," you protest. <br>
+	"Please explain," you plead, "first <b>why</b> they're the same; and secondly 
+	how did you <b>know</b> that they were going to be the same."
+And he'll tell you something like "They are both Functors in the same closure, so the 
+	XX Law (or the YY property) applies."  And you go, "Whaaaaaat?"
+	<p>
+You see, when you or I see the Lamda, we see a Function, a Method, a Piece Of Code.  The 
+FP guy sees all that we see, and then the glyphs on the screen drop (like in The Matrix) 
+and then he sees what's <b>behind the code.</b><br>To him, the Lambda is the Lambda of Lambda Calculus.  Mathematical rules and properties apply.
+
 	<p>
 <h3>No Category Theory needed</h3>
+Here is the crucial point: you DO NOT need to see what the FP guy sees behind the Matrix.
 You can use the QuickCheck library without a thorough grounding of Category Theory or 
-	FP concepts.  This guide will show you how.
+	FP concepts like <s>Monads</s> Burritos.  This guide will show you how.
 <p>
 Many devs have had a bad experience grokking deep FP concepts and have, by default, a 
 	defensive approach.  However, most of that theory is not strictly <b>necessary</b> 
