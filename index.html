@@ -142,7 +142,8 @@ for FP concepts, most of them accurate.
 To make the difference clear, please allow me to offer an illustration:<br>
 Say you are doing pair programming with someone named <a href=''>Bartosz</a>, 
 <a href=''>Tom Petricek</a> or <a href=''>Rich Hickey</a>.<br>
-The two of you are working on a simple CRUD app in a large closure which looks like this:<br>
+The two of you are working on a simple CRUD app in a large closure which looks like this:<p>
+	<code><pre>
    static void Closure = fun (params -> 
 	Client thisClient = getCli(params);
 	CliLocation thisLoc = 
@@ -155,22 +156,26 @@ The two of you are working on a simple CRUD app in a large closure which looks l
 	.stream()
 	.forEach( o:order -> itemPriceAfterTaxes(o));
    );
+</pre></code><p>
 Quite straight-forward, correct?  You are just adding some business logic updates.<br>
 Suddenly the FP guy next to you goes "Heh heh."<br>
-	You look at him inquiringly.  He says: "You know what?  The list lengths of ClientOrders will be the same as that of the ClientLocations."<br>
+	You look at him inquiringly.  <br>
+	He says: "You know what?  The list lengths of ClientOrders will be the same as that of the ClientLocations."<br>
 	"What?" you ask.  "What do those two things have to do with each other?"<br>
-	He'll ask you to check it with a debug statement.  You are intrigued.  You add the debug statement and it's true: both lists have 531 elements.<br>
+	He'll ask you to check it with a debug statement.  You are intrigued.  You add the debug statement 
+	and it's true: both lists have 531 elements.<br>
 '<i>This is insane</i>,' you think.<br>
 	"But the orders have nothing to do with the locations," you protest. <br>
 	"Please explain," you plead, "first <b>why</b> they're the same; and secondly 
-	how did you <b>know</b> that they were going to be the same."
+	how did you <b>know</b> that they were going to be the same?"<br>
 And he'll tell you something like "They are both Functors in the same closure, so the 
-	XX Law (or the YY property) applies."  And you go, "Whaaaaaat?"
+	XX Law (or the YY property) applies."  <br>
+	And you go, "Whaaaaaat?"
 	<p>
 You see, when you or I see the Lamda, we see a Function, a Method, a Piece Of Code.  The 
 FP guy sees all that we see, and then the glyphs on the screen drop (like in The Matrix) 
-and then he sees what's <b>behind the code.</b><br>To him, the Lambda is the Lambda of 
-Lambda Calculus.  Mathematical rules and properties apply.
+and then he sees what's <b>behind the code.</b><br>
+To him, the Lambda is the Lambda of Lambda Calculus.  Mathematical rules and properties apply.
 
 	<p>
 <h3>No Category Theory needed</h3>
@@ -181,7 +186,8 @@ You can use the QuickCheck library <b>without</b> a thorough grounding of Catego
 
 <h3>Avoid the heavy Lifting</h3>
 In this article I am assuming zero FP knowledge.  You might be working in 
-C# and using the FsCheck dotnet library, or any other flavor.  I will show 
+C# and using the FsCheck dotnet library, or any other flavor.  <br>
+I will show 
 you how to create a Model of your DSL and use FsCheck to autoGenerate tests.
 
 <h3>What it is</h3>
@@ -191,7 +197,7 @@ compiler begin to write and execute tests immediately.<br>
 <a href=''>John Hughes</a>, one of the original developers of QuickCheck says: "Don't write tests.  Generate them."
 <br>  If you're like me you'll be quite happy to front-load the effort of learning a new testing framework if the long
 	term benefits include not writing tests at all!
-	
+	<center><img src="./assets/associativity.png"></center>
 
 <br>
 <h3>Hands on toot</h3>
