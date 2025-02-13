@@ -6,25 +6,13 @@
 
 	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
 	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
-
-	<style type="text/css">
-		.claro html, body{
-		    background-color: rgb(253, 245, 230);
-		    background-image: url("./assets/fake-luxury.png");
-		    background-repeat: repeat;
-		}
-		.gridx {
-			width: 800px;
-			height: 400px;
-		}
-	</style>
 	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
 
 	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
 	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/common.css">
 	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
 
-<!--BEGIN Frm related assets-->
+<!--BEGIN Frm related + local assets-->
 	<style>
 		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
 		legend 			{ font-weight: bolder; font-size: larger; }
@@ -33,12 +21,23 @@
 		#result th		{ font-weight: bolder; }
 		#result .hilite	{ background-color: #fd8; }
 
-.dijitDialogPaneContent {
-    width: 800px !important;
-    height: 600px !important;
-}
+	.dijitDialogPaneContent {
+	    width: 800px !important;
+	    height: 600px !important;
+	}
 
-		.makeYellow		{ background-color: #ffa; }
+	.makeYellow		{ background-color: #ffa; }
+
+	.claro html, body{
+	    background-color: rgb(253, 245, 230);
+	    background-image: url("./assets/fake-luxury.png");
+	    background-repeat: repeat;
+	}
+	.gridx {
+		width: 800px;
+		height: 400px;
+	}
+
 	</style>
 
 <script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/commonAux.js"></script>
@@ -98,6 +97,9 @@ require([
 Mike's Blog
 	</h1>
 
+<div data-dojo-type="dijit.form.Button" data-dojo-props="onClick: createGrid">Articles</div>
+<div data-dojo-type="dijit.form.Button" data-dojo-props="onClick: createGrid">About</div>
+	
   Assets:<br>
   <ul>
     <li>Curr ver (Feb 11) uncommented w/core fns embedded 2 gist</li>
@@ -115,16 +117,40 @@ Mike's Blog
 <p>
 Every once in a while, something new comes out of the world of Functional Programming (FP) which 
 	takes even seasoned developers absolutely by surprise.
-<br>
-Here's the typical reaction from (even a Senior) deveoper:<br>
+<p>
+Here's the typical reaction from (even a Senior) developer, one with some FP exposure:<br>
 1) The developer will read something and say <i>"What?"</i>  Then he'll go silent and glassy-eyed.<br>
 2) After a few more minutes of reading, the developer will emit a low whistle.<br>
 3) Finally he'll say: "How is that even <i>possible</i>?
-<br>
+<p>
 I felt that way when I first read about FSharp Type Providers (see this, this and this).  
 	More recently I felt the same emotions when I encountered Haskell QuickCheck.
 
-</p>
+	<p>
+<h3>Behind the Matrix: The world of FP</h3>
+The OO programmer asks: "Why so many different definitions of Functors?"<br>
+"And why do I need Functors at all?"  When he's told "They are already 
+there and you are already using them, you just don't know that they <i>are</i> FUnctors."
+<p>
+The problem is that FP is almost strictly in the Academic world today (and also in use 
+by companies like Micorosoft/AWS but again in their Research departments).<br>
+Academics will give you thorough definitions and try to include all rules and properties.<br>
+Academics also have exposure to all facets of a concept, so they will tend to describe it from 
+their own subspeciality and perspective.  Which is why there are so many different definitions 
+for FP concepts, most of them accurate.
+<p>
+To make the difference clear, please allow me to offer an illustration:<br>
+Say you are doing pair programming with someone named <a href=''>Bartosz</a>, <a href=''>Tom Petricek</a> or <a href=''>Rich Hickey</a>
+	
+	<p>
+<h3>No Category Theory needed</h3>
+You can use the QuickCheck library without a thorough grounding of Category Theory or 
+	FP concepts.  This guide will show you how.
+<p>
+Many devs have had a bad experience grokking deep FP concepts and have, by default, a 
+	defensive approach.  However, most of that theory is not strictly <b>necessary</b> 
+	to simply <u>use</u> a library like QuickCheck (or a port of it to the language of your choice).  Sure, if
+	you are porting QuickCheck to the language of your choice you need to know all that.  But not simply to use it.
 
 
 <h3>What it is</h3>
