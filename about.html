@@ -1,36 +1,135 @@
+
+<!DOCTYPE html> 
 <html>
-<body>
+<head>
+	<title>Mike's Blog</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
+	<link rel='stylesheet' href="https://oria.github.io/gridx/build/gridx/tests/support/common.css" />
+	<script type="text/javascript" src="https://oria.github.io/gridx/build/dojo/dojo.js" data-dojo-config="async: true"></script>
+
+	<!--link rel="stylesheet" href="gfxClaro.css"-->	<!--(for overrides)-->
+	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/common.css">
+	<link rel="stylesheet" href="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/gfxGridx.css">	<!--(for customizations)-->
+
+<!--BEGIN Frm related + local assets-->
+	<style>
+		fieldset		{ border: 1px solid; margin: 1em; padding: 1em; }
+		legend 			{ font-weight: bolder; font-size: larger; }
+
+		#result			{ background-color: white; }
+		#result th		{ font-weight: bolder; }
+		#result .hilite	{ background-color: #fd8; }
+
+	.dijitDialogPaneContent {
+	    width: 800px !important;
+	    height: 600px !important;
+	}
+
+	.makeYellow		{ background-color: #ffa; }
+
+	.claro html, body{
+	    background-color: rgb(253, 245, 230);
+	    background-image: url("./assets/fake-luxury.png");
+	    background-repeat: repeat;
+	}
+  .quote {
+    margin: 0;
+    background: #eee;
+    padding: 1em;
+    border-radius: 1em;
+  }
+  .quote figcaption,
+  .quote blockquote {
+    margin: 1em;
+  }
+
+	</style>
+
+<!--script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/commonAux.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/FrmMngrExt.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/pvDlg.js"></script-->
+<!--END Frm related assets-->
+
+<script>
+require([
+	'dojo/parser',
+	'dojo/on', 'dojo/dom', 'dojo/mouse', /*@mbi'dojo/dom-Class',*/
+	'dojo/_base/Deferred', 'dijit/Tooltip', 'dijit/Toolbar', "dijit/Menu", "dijit/MenuItem",
+	'dijit/form/Button', "dijit/form/ComboButton", 'dijit/form/Select', 
+	/* frm related */
+    "dojo/_base/lang", "dijit/registry", "dojox/form/Manager",
+	'dijit/Dialog',
+	'dojo/domReady!'
+], function(parser, on, dom, mouse, /*@mbidomClass,*/ Deferred, Tooltip, Toolbar, Menu, MenuItem, Button, 
+	    ComboButton, Select, lang, registry, Mngr, Dialog){
+
+	window.showFrm = function(){
+	    myFrmDialog.show();
+	    var frm = registry.byId("form");
+	    frm["disable"]();
+	}
+	window.editFrm = function(){
+	    var frm = registry.byId("form");
+	    frm["enable"]();
+	}
+
+	const gfxCreateBtnHandler = (e) => {
+	    myFrmDialog.show();
+			(registry.byId('frmTBpv')).set('disabled', true);
+	    frm["enable"]();
+			alert('createBtnTibbie');
+	}
+
+	var gfxCreateBtn = new Button({
+		label: 'Create',
+		iconClass:'gridxCreateIcon',
+		onClick:gfxCreateBtnHandler
+	});
+
+
+	testFetch = function(){
+						window.runFetch('fetchPVs');
+	};
+
+	parser.parse();
+});
+</script>
+
+</head>
+
+<body class='claro'>
+<div data-dojo-type="dijit.form.Button">Articles</div>
+<div data-dojo-type="dijit.form.Button" >About</div>
 
 <table style="border-collapse: collapse;width:100%;">
   <tr style="border-bottom: 1px solid black;">
-    <td style="width:20%;"><img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/mikeAI.png?raw=true' width="20%"></td>
+    <td style="width:20%;vertical-align: top;"><img src='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/blob/main/img/mikeAI.png?raw=true' width="80%"></td>
     <td>  Mike Trivedi founded his software company - Trivedi Solutions - in 
-  Valley Forge, PA in the early '90s.  Since then he has provided expert 
+  Valley Forge, PA in the early '90s.  <p>Since then he has provided expert 
   consulting services to many companies, including about a dozen S&P500 
   companies, as well as members of the DOW30, FTSE50 and CAC40.
-  <br>
-  He has also built a large number of custom apps.  One of his apps achieved
+  <p>
+  He has also built a large number of custom apps.  <br>One of his apps achieved
    an <b>IBM ServerProven<sup>TM</sup></b> designation and was sold to EU clients.
-  <br>
+  <p>
   In 2018 Mike became the solo bootstrapped founder of <b>Brij</b>, a noCode 
   Database System: think <i>AirTable</i> but with real Database capabilities, including:
-  <br>
-  <ul>
+    <ul>
     <li>Table/Schema Design</li>
     <li>Form Design</li>
     <li>DataView Design</li>
     <li>Infinite Capacity</li>
   </ul>
-<br>
+
   Sometime during the COVID lockdown, Mike ported Brij (then about 40k loc) from 
   Java to FSharp.  Since then he has been a Functional Programming (FP) enthusiast 
   and advocate.
-  <br>
+  <p>
   Link to one-page resume <a href='https://github.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/raw/refs/heads/main/Resume_Mike_Trivedi.docx'>here</a></td>
   </tr>
 </table>  
   
-  <br>
 </body>
-  
 </html>
