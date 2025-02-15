@@ -47,9 +47,9 @@
 
 	</style>
 
-<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/commonAux.js"></script>
+<!--script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/commonAux.js"></script>
 <script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/FrmMngrExt.js"></script>
-<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/pvDlg.js"></script>
+<script type="text/javascript" src="https://trivedienterprisesinc.github.io/ui/2024/form/gridx_Styling/pvDlg.js"></script-->
 <!--END Frm related assets-->
 
 <script>
@@ -100,26 +100,13 @@ require([
 </head>
 
 <body class='claro'>
-	<h1 class='title' tabindex='0' onfocus='this.style.color="blue"' onblur='this.style.color=""'>
-Mike's Blog
-	</h1>
-
-<div data-dojo-type="dijit.form.Button>Articles</div>
+<div data-dojo-type="dijit.form.Button">Articles</div>
 <div data-dojo-type="dijit.form.Button" >About</div>
 	
-  Assets:<br>
-  <ul>
-    <li>Curr ver (Feb 11) uncommented w/core fns embedded 2 gist</li>
-    <li>Curr ver (Feb 11) reduced (no console debgs) for inclusion</li>
-    <li>Gif of debug stmts, freeze 4 details or go 2 end & scroll up 2 see outpt</li>
-  </ul>
-<hr>
-  <br>
-	
 	<center>
-	<h1>PBT: Developers must NOT write tests</h1>
+	<h1 class='title'>PBT: Developers must NOT write tests</h1>
 	<i>or,</i><br>
-	<h2>Hands On: Using FsCheck to test a Windows App's UI</h2>
+	<h2 class='title'>Hands On: Using FsCheck to test a Windows Client UI</h2>
 	</center>
 <p>
 Every once in a while, something new comes out of the world of Functional Programming (FP) which 
@@ -131,82 +118,18 @@ Here's the typical reaction from (even a Senior) developer, one with some FP exp
 3) Finally he'll say: "How is that even <i>possible</i>?
 <p>
 I felt that way when I first read about FSharp Type Providers (see this, this and this).  
-	More recently I felt the same emotions when I encountered Haskell QuickCheck.
+	More recently I felt the same emotions when I encountered Haskell <a href='https://en.wikipedia.org/wiki/QuickCheck'>QuickCheck</a>.
 
 	<p>
-<h3>Behind the Matrix: The world of FP</h3>
-
-The typical OO developer's initial foray into the FP world will usually find him trying to grok <s>Monads</s> Burritos in three hours.  Or all of Category Theory in one day.
-<p>
-  When that does not work, the developer will get dejected.  And spend the rest of their life downvoting FP posts.
-  <p>
-    I feel that there is another approach: just wade into it - start coding - and you shall slowly acquire the <a href='tacit'>Tacit Knowledge</a> behind FP in a few months.
-    <p>
-      I am a self-taught programmer (no CS degree).  About five years ago I began coding in FSharp.  If I can do it, so can you.
-      <p>
-
-Begin with easy definitions and take it from there: <br>
-"A Functor is something you can map over"
-<br>
-The OO dev will be tempted to ask:<br>
-"Why so many different definitions of Functors?"<br>
-"And why do I need Functors at all?"  
-<p>
-  The correct answer is:<br>
-  "They are already there.  You are already using them.  You just don't know that they <i>are</i> Functors."
-<p>
-The problem is that FP is almost strictly in the Academic world today (and also in use 
-by companies like Micorosoft/AWS but again in their Research departments).<br>
-Academics will give you thorough definitions and try to include all rules and properties.<br>
-Academics also have exposure to all facets of a concept, so they will tend to describe it from 
-their own subspeciality and perspective.  Which is why there are so many different definitions 
-for FP concepts, most of them accurate.
-<p>
-To make the difference between FP devs and non-FP clear, please allow me to offer this illustration:<p>
-Say you are doing pair programming with someone named <a href=''>Bartosz</a>, 
-<a href=''>Tom Petricek</a> or <a href=''>Rich Hickey</a>.<br>
-The two of you are working on a simple CRUD app in a large closure which looks like this pseudoCode:
-<p>
-  <center><img src="./assets/pseudoCode.png"></center>
-  <p>
-Quite straight-forward, correct?  You are just adding some business logic updates.<br>
-Suddenly the FP guy next to you goes "Heh heh."<br>
-	You look at him inquiringly.  <br>
-	He says: "You know what?  The list lengths of ClientOrders will be the same as that of the ClientLocations."<br>
-	"What?" you ask.  "What do those two things have to do with each other?"<br>
-	He'll ask you to check it with a debug statement.  You are intrigued.  You add the debug statement 
-	and it's true: both lists have 531 elements.<br>
-'<i>This is insane</i>,' you think.<br>
-	"But the orders have nothing to do with the locations," you protest. <br>
-	"Please explain," you plead, "first <b>why</b> they're the same; and secondly 
-	how did you <b>know</b> that they were going to be the same?"<br>
-And he'll tell you something like "They are both Functors in the same closure, so the 	XX Law (or the YY property) applies."  <br>
-	And you go, "Whaaaaaat?"
-	<p>
-  <center><img src="./assets/matrix.gif"></center>
-<p>
-You see, when you or I see the Lamda, we see a Function, a Method, a Piece Of Code.  
-<p>
-  The 
-FP guy sees all that we see, and then the glyphs on the screen drop (like in The Matrix) 
-and then he sees what's <b>behind the code</b>.<br>
-To him, the Lambda is the Lambda of Lambda Calculus.  Mathematical rules and properties apply.
-	<p>
-<h3>No Category Theory needed</h3>
-Here is the crucial point: you DO NOT need to see what the FP guy sees behind the Matrix.
-You can use the FsCheck library <b>without</b> a thorough grounding of Category Theory or 
-	FP concepts like <s>Monads</s> Burritos.  This guide will show you how.
-<p>
 
 <h3>Avoid the heavy Lifting</h3>
 In this article I am assuming zero FP knowledge.  You might be working in 
-C# and using the FsCheck dotnet library, or any other flavor.  <br>
-I will show 
-you how to create a Model of your DSL and use FsCheck to autoGenerate tests.
+C# and using the FsCheck dotnet library, or any other flavor of QuickCheck.  <br>
+I will show you how to create a State Machine Model mapping your API to  use FsCheck to autoGenerate and run tests.
 <p>
 
 <h3>What it is</h3>
-	QuickCheck is a Haskell library which allows you to generate hundreds, even thousands of random 
+	<a href='https://hackage.haskell.org/package/QuickCheck'>QuickCheck</a> is a Haskell library which allows you to generate hundreds, even thousands of random 
 tests.  You just set it up, give it a property to test and it's almost as if  ten mini developers in the compiler begin to write and execute tests immediately.<p>
 
 Here is how <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>John Hughes</a>, one of QuickCheck's original developers, describes the library:<p>
@@ -245,10 +168,10 @@ idea, for languages ranging from C to Swift.
   </blockquote>
   <figcaption>
     &mdash; John Hughes, <cite>Experiences with QuickCheck:
-Testing the Hard Stuff and Staying Sane</cite>  </figcaption>
+Testing the Hard Stuff and <a href='https://publications.lib.chalmers.se/records/fulltext/232550/local_232550.pdf'>Staying Sane</a></cite>  </figcaption>
 </figure>
 <p>
-QuickCheck and its ports have been used in Real-World situations at many companies including Volvo and AWS.  Even though this library has been around for a few years, like most cutting-edge research, 'Main Street' is slow in adopting PBT.  This is good news: you can be one of the devs on the <i>avant garde</i>!
+QuickCheck and its ports have been used in Real-World situations at many companies including Volvo and AWS.  Even though this library has been around for a few years, like most cutting-edge research, 'Main Street' has been slow in adopting PBT.  This is good news: you can be one of the devs on the <i>avant garde</i>!
 
 <p>  If you're like me you'll be quite happy to front-load the effort of learning a new testing framework if the long
 	term benefits include not writing tests at all!
@@ -258,14 +181,15 @@ QuickCheck and its ports have been used in Real-World situations at many compani
 <h3>Required Reading</h3>
 Reading these two short articles will help you in your first attempt at PBT:
 <ol>
-  <li></li>
+  <li>John Hughes' (short, very readable) paper: Experiences with <a href='https://publications.lib.chalmers.se/records/fulltext/232550/local_232550.pdf'>QuickCheck</a>:
+Testing the Hard Stuff and Staying Sane</li>
   <li>FsCheck Docs: <a href='https://fscheck.github.io/FsCheck//StatefulTestingNew.html'>Model</a>-based Testing</li>
 </ol>
 I found both of these two be an easy read.
 <p>
-  If you wish to go dive deeper there are additional links at the bottom of this article.
+  If you wish to dive deeper there are additional links at the bottom of this article.
 <p>
-<h3>Model Based</h3>
+<h3>State-Model Based Testing</h3>
 
 After reading all the docs thoroughly I came to the conclusion that the Model-Based approach was the easiest to implement as a newbie.
 
@@ -274,7 +198,8 @@ After reading all the docs thoroughly I came to the conclusion that the Model-Ba
 <p>
 <figure class="quote">
   <blockquote>
-We test stateful systems by generating sequences of calls to the API under test, just like the test cases that developers write by hand. But we also model the state of the system abstractly, and define model state transitions for each operation in the API. Using these state transition functions, we compute the model state at every point in a test. We define postconditions for each API call, relating the actual result of the call to the model state (see the Figure above). A test passes if all postconditions hold.
+We test stateful systems by generating sequences of calls to the API under test, just like the test cases that developers write by hand. But we also model the state of the system abstractly, and define model state transitions for each operation in the API. 
+<p>Using these state transition functions, we compute the model state at every point in a test. We define postconditions for each API call, relating the actual result of the call to the model state (see the Figure above). A test passes if all postconditions hold.
   </blockquote>
   <figcaption>
     &mdash; John Hughes, <cite>Experiences with QuickCheck:
@@ -296,13 +221,15 @@ and under Model get inc inc dec...
 Easy to reason about, use Spreadsheet txt + link; use Hughes' img + link, Easy to connect to app's functionality.
 
 <br>
-	The developers at Row Zero formerly worked at AWS and used tools like QuickCheck to formally verify the S3 filesystem.<br>
-	Here is how they define Model-Based Testing in their excellent PBT <a href='https://grantslatton.com/rowzero-property-testing'>article</a>:<br>
+	Another description I found helpful in understanding the mechanics of building a State Machine Model is provided in Grant Slatton's excellent <a href='https://grantslatton.com/rowzero-property-testing'>article</a> on PBT.  <p>
+    Grant is a founding engineer at <a href='https://rowzero.io/'>Row Zero</a>, the world's fastest spreadsheet.  He formerly worked at AWS and used tools like QuickCheck to formally verify the S3 filesystem.<br>
+	
 <figure class="quote">
   <blockquote>
-Blackbox reference-model testing is the best and most powerful method. This involves testing the real implementation of something against a reference model. Typically, the reference model will be much less efficient than the real one, or lacking some functionality.
-	<br>
-An example of this is how we store the values of the cells in the spreadsheet. You could imagine a solution that is just a giant hash table whose key is the cell name, and the value is the contents of that cell. In practice, we do something much more efficient than this, but our optimized implementation should still behave like a simple hash table.
+Blackbox reference-model testing is the best and most powerful method. This involves testing the real implementation of something against a reference model. <p>Typically, the reference model will be much less efficient than the real one, or lacking some functionality.
+	<p>
+An example of this is how we store the values of the cells in the spreadsheet. You could imagine a solution that is just a giant hash table whose key is the cell name, and the value is the contents of that cell. 
+<p>In practice, we do something much more efficient than this, but our optimized implementation should still behave like a simple hash table.
 <br>
 So we can make a test that does random cell inserts, updates, and deletes to the real data structure, and a simple hash table reference. Then, at the end of the test, we compare them to make sure they have the same values in each cell.
 
@@ -313,8 +240,8 @@ So we can make a test that does random cell inserts, updates, and deletes to the
 
 <p>
 
-<h3>The FsC example</h3>
-  Like FSharp code, the Model-Based example shown in the <a href='https://fscheck.github.io/FsCheck//StatefulTestingNew.html'>man page</a> is short but complete<p>
+<h3>A closer look at the FsC State Model Test example</h3>
+  Like FSharp code, the Model-Based example shown in the <a href='https://fscheck.github.io/FsCheck/StatefulTestingNew.html'>man page</a> is short but complete.<p>
     The entire test is just about 25 lines of code, but there is a lot happenning.<br>
     For those new to FSharp syntax, I ask you to read the man page slowly (especially the documentation part)<p>
       There are only three important types used in the example:<br>
@@ -323,43 +250,104 @@ So we can make a test that does random cell inserts, updates, and deletes to the
         <li>Setup&lt;TypeUnderTest, ModelType&gt;</li>
         <li>Operation&lt;TypeUnderTest, ModelType&gt;</li>
       </ul>
+      <p>
+        The code flow is dead simple:<p>
+        <i>Create the Machine <br>
+        |> Setup the Machine <br>
+        |> Create Operations for Test and Actual Models.</i>
+        <p>FsCheck will do the rest (run the tests first on the Test Model, then on the Actual Model, and then run the Checks)
   <p>
-    The <b>Counter</b> type is just a wrapper around a stored mutable state  <b>int</b>, and has methods <b>Inc</b> and <b>Dec</b> which return the state.
-    <br>
-    The main action in the example takes place in the Operations <b>inc</b> and <b>dec</b><br>
+
+	<center><img src="./assets/CounterTy.png" width='100%'></center>
+<p>
+
+    The <b>Counter</b> type represents the Actual Model and is just a wrapper around a stored mutable state  <b>int</b>, and has methods <b>Inc</b> and <b>Dec</b> which return the state.
+    <p>
+<center><img src="./assets/spec.png" width='100%'></center>
+<p>
+    The main action in the example takes place in the Operations <b>inc</b> and <b>dec</b> shown above.<br>
     Operations have a function <b>Run</b> which runs the Action on the test Model, and a method <b>Check</b> which runs it on the Actual System; and then compares the result with the results of the test model.
   <p>
     <b>Please note:</b><br> If you find Fsharp code syntax hard to decipher with (and are familiar with C), John Hughes has provided a simple example of testing a queue implemented as a circular buffer in C in <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>this</a> paper.  Perhaps you can read it before the FsCheck man page.
 
 <p>
 <h3>The Production System under test</h3>
-<h3>insert scrnshot</h3><br>
-The system I am currently testing is the Desktop UI module of a Database System.<br>  The screenshot above shows how the Desktop window looks.  It is a Windows Form with a multiple document interface (MDI) <a href='https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.mdilayout?view=netframework-4.8.1'>layout</a>.  This allows the devoper to open multiple child windows, just like the Windows desktop opens a new window for each icon clicked.<p>
-The internal API for the Desktop UI element is as follows:
-<ul>
-  <li><b>AddIcon()</b>: Allows the dev to add a new Icon to the Desktop</li>
-  <li><b>RemoveIcon()</b>: Allows the dev to remove a specific Icon from the Desktop</li>
-  <li><b>ChangeLbl()</b>:  Allows the dev to change a specific Icon's label text</li>
-  <li><b>OpenDb()</b>: Opens the Database associated with the icon; triggered on icon.DoubleClick</li>
-  <li><b>OpenDevView()</b>: Opens the Database associated with the icon; triggered on icon.RightClick (popupMenu-&gt;Select("Open in DeveloperView")</li>
-  <li><b>WindowSwitchTo()</b>: Allows the Developer to switch to a selected Child Window (accessible via the Window subMenu)</li>
-  <li><b>...and so on</b> (many Desktop UI API calls excluded)</li>
-</ul><p>
-  For this article, we shall only be working with and testing the <b>AddIcon</b> and <b>RemoveIcon</b> API calls.<p>
+
+<center><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/img/0SP.png" width='75%' style='border:1px solid'></center>
+
+<p>
+The system we are currently testing is the Desktop Client UI of a Database System.<br>  The screenshot above shows how the Desktop window looks.  It is a Windows Form with a multiple document interface (MDI) <a href='https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.mdilayout?view=netframework-4.8.1'>layout</a>.  This allows the devoper to open multiple child windows, just like the Windows desktop opens a new window for each icon clicked.<p>
+The internal API for the Desktop UI element is as follows:<p>
+
+<table style="border-collapse: collapse;width:100%;border: 2px solid black;">
+    <caption><center><h4>Desktop API</h4></center></caption>
+  <tr style="border-bottom: 2px solid black;border-top: 2px solid black;">
+    <th style="width:20%;">API Call</th>
+    <th style="width:40%;">Trigger</th>
+    <th>Desc</th>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>AddIcon()</td>
+    <td>RightClick on Dsktop &gt;&gt; PopupMenu &gt;&gt; "Add Icon"</td>
+    <td>Allows the dev to add a new Icon to the Desktop</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>RemoveIcon()</td>
+    <td>RightClick on Icon &gt;&gt; PopupMenu &gt;&gt; "Remove Icon"</td>
+    <td>Allows the dev to remove a specific Icon from the Desktop</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>ChangeLbl()</td>
+    <td>IconRightClick &gt;&gt; PopupMenu &gt;&gt; "Change Label"</td>
+    <td>Allows the dev to change a specific Icon's label text</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>OpenDb()</td>
+    <td>IconDblClick</td>
+    <td>Opens the Database associated with the icon</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>OpenDevView()</td>
+    <td>IconRightClick &gt;&gt; PopupMenu &gt;&gt; "Open in DeveloperView"</td>
+    <td>Opens the Database associated with the icon in DesignMode</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>WindowSwitchTo()</td>
+    <td>Menu|Window &gt;&gt; selectWindowItem</td>
+    <td>Allows the Developer to switch to an open Child Window</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>...()</td>
+    <td>...</td>
+    <td>(many other UI API calls excluded)</td>
+  </tr>
+</table>
+<p>
+  For this article, we shall only be working with and testing the <b>AddIcon()</b> and <b>RemoveIcon()</b> API calls.<p>
 
 This functionality seems to be an ideal mapping of the model(s) in the FsCheck example to the Database System: instead of incrementing or decrementing a Counter, we will be adding/removing icons to a UI window.
 <p>
-  The approach being taken here is a baby step because we are still newbies at PBT.  Once we get it working and have "tested the test setup" we can proceed to build more complicated Models and test other API calls, interleave calls, run them in batches, sequentially or async, etc.
+  The approach being taken here is a baby step; once we get it working and have "tested the test setup" we can proceed to build more complicated Models and test other API calls, interleave calls, run them in batches, sequentially or in parallel, etc.
   <p>
 
 <h3>A Note about the Production System</h3>
 <p>
-For the test we are going to pass a 3-parameter tuple to the ctor: <b>(ImageName, TableType, TableName)</b>
+<center><img src="./assets/tuple.png" width='75%' style='border:1px solid'></center>
+  <p>
+For the test we are going to pass a 3-parameter tuple to the <b>DskStateMachine</b> ctor shown in the image above.
 <p>
-  The real system uses many more parameters: State information like DateTimeTableLastAccessed, DatabaseQueryString, SessionInfo, UserInfo, UserMarkedRecords, etc.<p>
+  The real system uses many more parameters, including: 
+  <ul>
+    <li><b>TableState</b> (DateTimeTableLastAccessed, DatabaseQueryString, UserMarkedRecords, ...)</li>
+    <li><b>SessionState</b> (ClientType, LoginDateTime, AuthData, ...)</li>
+    <li><b>UserState</b> (UserName, LicenseType, ClientID, ...)</li>
+  </ul>
+  <p>
+    The production system persists this state in a <b>Desktop.brj</b> file (sort of like Desktop.ini in Windows but binary) which is synched to the Backend Server.
+    <p>
     Most of these extra parameters are irrelevant to our test (which only tests the icons) so instead of calling the production ctor I'll be calling a curried function which will fill in the missing parameters with default values.
     <p>
-      Please also note that because the production system is commercial/copyrighted I can't share any proprietory code.  However, the test gist here contains working code; I shall share the <b>results</b> of running the test on production and you shall have enough to customize the models and types to your own application.
+      Please also note that because the production system is commercial/copyrighted I can't share any proprietory code.  However, the gist <a href='https://google.com'>here</a> contains working code; I shall share the <b>results</b> of running the test on production and you shall have enough to customize the models and types to your own application.
       <p>
 
 
@@ -373,49 +361,31 @@ For the test we are going to pass a 3-parameter tuple to the ctor: <b>(ImageName
   Also renaming, poss; then chain em all.
 <br>
 
+
 <hr>
-	Links from the PBT mBox<p>
+<h3>Additional Reading</h3>
 
-<br>dotNet race condition testing: (recent post ~ 21)
-<br>https://stackoverflow.com/questions/68222989/do-race-conditions-exist-when-using-just-async-await
-<br>
-Wlaschin PBT (fmtd; we have pgs 1-3): PBT_wlaschin.64 (this plnk) (removed)
-(condensed w/images here: https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html)
-<br>
-Haskell SUT state-machine testing tutorial: https://github.com/stevana/property-based-testing-stateful-systems-tutorial/tree/main
-<br>
-Property-Based Testing Against a Model of a Web Application
-<br>August 11, 2022 (https://concerningquality.com/model-based-testing/)
-<br>
-See also (ALL seem relevant; chk appendices for more):
-<br>
-* 2016 Mysteries of Dropbox: Property-Based Testing of a Distributed Synchronization Service (Hughes et al., 11 pp)
-<br>
-x How to <a hre='https://research.chalmers.se/publication/517894/file/517894_Fulltext.pdf'>Specify</a> it! (John Hughes) : A Guide to Writing Properties of Pure Functions.
-<br>
-x John Hughes: ~2006 Experiences with QuickCheck: Testing the <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>Hard Stuff</a> and Staying Sane
-<br>
-		[This paper introduces Quviq QuickCheck (Erlang port), and in particular the extensions made for testing stateful code, via a toy example in C. 
-It goes on to describe the largest QuickCheck project to date, which developed acceptance tests for AUTOSAR C code on behalf of Volvo Cars.
-Finally it explains a race detection method that nailed a notorious bug plaguing Klarna, northern Europe’s market leader in invoicing systems for
-e-commerce. <br>
-Together, these examples give a reasonable overview of the way QuickCheck has been used in industrial practice.]
-<br>
-* <a href='https://dl.acm.org/doi/10.1145/3477132.3483540'>Paper</a>: Using Lightweight Formal Methods to Validate a Key-Value Storage Node in Amazon S3 
-<br>This paper reports our experience applying lightweight formal methods to validate the correctness of ShardStore, a new key-value storage node implementation for the Amazon S3 cloud object storage service.
-<br>
+These pages link to <b>many</b> good resources on PBT using <a href='https://hackage.haskell.org/package/QuickCheck'>Haskell</a> and <a href='https://fscheck.github.io/FsCheck//LearningResources.html'>FsCheck</a>.
+<p>
+Some additional reading I found useful:
+<ul>
+  <li><a href='https://fsharpforfunandprofit.com/posts/property-based-testing-2/'>Choosing properties</a> for property-based testing</li>
+  <li>PBT <a href='https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html'>patterns</a></li>
+  <li>Haskell SUT state-machine testing <a href="https://github.com/stevana/property-based-testing-stateful-systems-tutorial/tree/main">tutorial</a></li>
+  <li>Property-Based Testing Against a Model of a <a href='https://concerningquality.com/model-based-testing/'>Web</a> Application</li>
+  <li>Proving <a href='https://www.compositional-it.com/news-blog/proving-function-correctness-with-property-based-tests/'>function correctness</a> with property-based tests</li>
+  <li>Using FsCheck to test functions that arise in development of a <a href='http://opcoast.com/demos/fsharp/part3.html'>branch and bound</a> algorithm</li>
+  </ul>
 
-FsChk related (from <a href='https://fscheck.github.io/FsCheck//LearningResources.html'>fsChk Repo</a>)
-<br>* <a href='https://www.compositional-it.com/news-blog/proving-function-correctness-with-property-based-tests/'>Blog</a> article (Sept '24): Proving function correctness with property-based tests
-<br>In this blog post, Matt shows how property-based tests and carefully chosen properties can be used to "prove" function correctness.
-<br>
-* FsChk <a href='https://www.nuget.org/packages/FsCheck#versions-body-tab'>3.0</a> (2025) 
-<br><a href='https://wqplease.com/p/fscheck-3-property-based-testing-in-c-3ba4a2a50388'>(uses C#)</a>
-<br>* <a href='http://opcoast.com/demos/fsharp/part3.html'>Uses</a> of FsCheck to test functions that arise in development of a branch and bound algorithm.
-<br>* <a href='https://fsharpforfunandprofit.com/posts/property-based-testing-2/'>Wlaschin</a>: Choosing properties for property-based testing
-<br>“what properties should I use? I can’t think of any!”
-<br>* <a href='https://fscheck.github.io/FsCheck//TipsAndTricks.html'>Tips and Tricks</a>
-<br>Perhaps surprisingly, FsCheck can generate random functions, Func and Actions. As a result, it can check properties of functions...
+
+  Assets:<br>
+  <ul>
+    <li>Curr ver (Feb 11) uncommented w/core fns embedded 2 gist</li>
+    <li>Curr ver (Feb 11) reduced (no console debgs) for inclusion</li>
+    <li>Gif of debug stmts, freeze 4 details or go 2 end & scroll up 2 see outpt</li>
+  </ul>
+<hr>
+  <br>
 <br>	
 </body>
 </html>
