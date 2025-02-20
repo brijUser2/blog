@@ -2,7 +2,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-	<title>Mike's Blog</title>
+	<title>PBT: Developers must NOT write tests</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<!--The file below imports claro/document/gridx/rtl/dojo css files-->
@@ -43,6 +43,17 @@
   .quote figcaption,
   .quote blockquote {
     margin: 1em;
+  }
+
+  figure {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+  }
+  figcaption {
+      font-style: italic;
+      color: #555;
   }
 
 	</style>
@@ -106,31 +117,39 @@ require([
 	<center>
 	<h1 class='title'>PBT: Developers must NOT write tests</h1>
 	<i>or,</i><br>
-	<h2 class='title'>Hands On: Using FsCheck to test a Windows Client UI</h2>
+	<h2 class='title'>Hands On: Using FsCheck to test a Desktop Client UI</h2>
 	</center>
 <p>
 Every once in a while, something new comes out of the world of Functional Programming (FP) which 
 	takes even seasoned developers absolutely by surprise.
 <p>
 Here's the typical reaction from (even a Senior) developer, one with some FP exposure:<br>
-1) The developer will read something and say <i>"What?"</i>  Then he'll go silent and glassy-eyed.<br>
-2) After a few more minutes of reading, the developer will emit a low whistle.<br>
-3) Finally he'll say: "How is that even <i>possible</i>?
-<p>
-I felt that way when I first read about FSharp Type Providers (see this, this and this).  
-	More recently I felt the same emotions when I encountered Haskell <a href='https://en.wikipedia.org/wiki/QuickCheck'>QuickCheck</a>.
+<ul><li>
+The developer will read something and say <i>"What?"</i>  Then he'll go silent and glassy-eyed.
+</li><li>After a few more minutes of reading, the developer will emit a low whistle.<br>
+</li><li>Finally he'll say: "How is that even <i>possible</i>?
+</li></ul>
+
+I felt that way when I first read about FSharp Type Providers (see <a href='https://fsprojects.github.io/FSharp.Data/library/CsvProvider.html#Introducing-the-provider'>this</a>, <a href='https://fsprojects.github.io/FSharp.Data/library/JsonProvider.html#Introducing-the-provider'>this</a> and <a href='https://learn.microsoft.com/en-us/dotnet/fsharp/tutorials/type-providers/'>this</a>).  
+	More recently I felt the same emotions when I encountered Haskell <a href='https://en.wikipedia.org/wiki/QuickCheck'>QuickCheck</a> and its FSharp port, <a href='https://fscheck.github.io/FsCheck/'>FsCheck</a>.
 
 	<p>
 
 <h3>Avoid the heavy Lifting</h3>
 In this article I am assuming zero FP knowledge.  You might be working in 
-C# and using the FsCheck dotnet library, or any other flavor of QuickCheck.  <br>
+C# and using the FsCheck dotNet library, or any other flavor of QuickCheck.  <br>
 I will show you how to create a State Machine Model mapping your API to  use FsCheck to autoGenerate and run tests.
 <p>
 
 <h3>What it is</h3>
 	<a href='https://hackage.haskell.org/package/QuickCheck'>QuickCheck</a> is a Haskell library which allows you to generate hundreds, even thousands of random 
 tests.  You just set it up, give it a property to test and it's almost as if  ten mini developers in the compiler begin to write and execute tests immediately.<p>
+    <figure>
+        <img src="./assets/associativity.png" width='75%'>
+        <figcaption>Fig.1: Merely provide a property and generate 000s of tests.</figcaption>
+    </figure>
+	<center></center>
+<p>
 
 Here is how <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>John Hughes</a>, one of QuickCheck's original developers, describes the library:<p>
 
@@ -175,7 +194,6 @@ QuickCheck and its ports have been used in Real-World situations at many compani
 
 <p>  If you're like me you'll be quite happy to front-load the effort of learning a new testing framework if the long
 	term benefits include not writing tests at all!
-	<center><img src="./assets/associativity.png"></center>
 <p>
 
 <h3>Required Reading</h3>
@@ -187,14 +205,16 @@ Testing the Hard Stuff and Staying Sane</li>
 </ol>
 I found both of these two be an easy read.
 <p>
-  If you wish to dive deeper there are additional links at the bottom of this article.
-<p>
 <h3>State-Model Based Testing</h3>
 
 After reading all the docs thoroughly I came to the conclusion that the Model-Based approach was the easiest to implement as a newbie.
-
 <p>
-  <center><img src="./assets/hughesStateMachine.png"></center>
+  Here is a short description of how to use a State Machine Model:
+<p>
+    <figure>
+        <img src="./assets/hughesStateMachine.png" width='75%'>
+        <figcaption>Fig.2: Adjudging a test based on a state machine model</figcaption>
+    </figure>
 <p>
 <figure class="quote">
   <blockquote>
@@ -206,49 +226,26 @@ We test stateful systems by generating sequences of calls to the API under test,
 Testing the Hard Stuff and Staying Sane</cite>  </figcaption>
 </figure>
 <p>
-  <center><img src="./assets/stateMachineIcn.png"></center>
+  In short, a State Model is easier to reason about and also to connect to your app's functionality.  
 <p>
-<h3>[[This fig nds 2 be customized to show: ]]</h3>
-<ul>
-  <li>Actual API Call</li>
-  <li>Model API Call</li>
-  <li>State</li>
-</ul>
-To the right, Setup (arrow) & state gets 0;<br>
-Then subseq calls under Actual get Inc Inc Dec<br>
-and under Model get inc inc dec...
+The figure below shows the model adapted to the FsCheck example (of a counter) 
+    <figure>
+        <img src="./assets/stateMachineIcn.png" width='75%'>
+        <figcaption>Fig.3: A sample test case for the FsCheck example</figcaption>
+    </figure>
 <p>
-Easy to reason about, use Spreadsheet txt + link; use Hughes' img + link, Easy to connect to app's functionality.
-
-<br>
-	Another description I found helpful in understanding the mechanics of building a State Machine Model is provided in Grant Slatton's excellent <a href='https://grantslatton.com/rowzero-property-testing'>article</a> on PBT.  <p>
-    Grant is a founding engineer at <a href='https://rowzero.io/'>Row Zero</a>, the world's fastest spreadsheet.  He formerly worked at AWS and used tools like QuickCheck to formally verify the S3 filesystem.<br>
-	
-<figure class="quote">
-  <blockquote>
-Blackbox reference-model testing is the best and most powerful method. This involves testing the real implementation of something against a reference model. <p>Typically, the reference model will be much less efficient than the real one, or lacking some functionality.
-	<p>
-An example of this is how we store the values of the cells in the spreadsheet. You could imagine a solution that is just a giant hash table whose key is the cell name, and the value is the contents of that cell. 
-<p>In practice, we do something much more efficient than this, but our optimized implementation should still behave like a simple hash table.
-<br>
-So we can make a test that does random cell inserts, updates, and deletes to the real data structure, and a simple hash table reference. Then, at the end of the test, we compare them to make sure they have the same values in each cell.
-
-  </blockquote>
-  <figcaption>
-    &mdash; Grant Slatton, <cite>founder @ Row Zero</cite>  </figcaption>
-</figure>
-
+You should by now have a clear understanding of the mechanics of building a State Machine Model.  If you still need clarification I suggest reading Grant Slatton's <a href='https://grantslatton.com/rowzero-property-testing'>excellent</a> PBT article (Grant used PBT to formally test the S3 filesystem at AWS)
 <p>
 
-<h3>A closer look at the FsC State Model Test example</h3>
+<h3>A closer look at the FsCheck State Model Test example</h3>
   Like FSharp code, the Model-Based example shown in the <a href='https://fscheck.github.io/FsCheck/StatefulTestingNew.html'>man page</a> is short but complete.<p>
     The entire test is just about 25 lines of code, but there is a lot happenning.<br>
     For those new to FSharp syntax, I ask you to read the man page slowly (especially the documentation part)<p>
       There are only three important types used in the example:<br>
       <ul>
-        <li>Machine&lt;TypeUnderTest, ModelType&gt;</li>
-        <li>Setup&lt;TypeUnderTest, ModelType&gt;</li>
-        <li>Operation&lt;TypeUnderTest, ModelType&gt;</li>
+        <li>Machine&lt;'TypeUnderTest, 'ModelType&gt;</li>
+        <li>Setup&lt;'TypeUnderTest, 'ModelType&gt;</li>
+        <li>Operation&lt;'TypeUnderTest, 'ModelType&gt;</li>
       </ul>
       <p>
         The code flow is dead simple:<p>
@@ -258,29 +255,42 @@ So we can make a test that does random cell inserts, updates, and deletes to the
         <p>FsCheck will do the rest (run the tests first on the Test Model, then on the Actual Model, and then run the Checks)
   <p>
 
-	<center><img src="./assets/CounterTy.png" width='100%'></center>
+    <figure>
+        <img src="./assets/CounterTy.png" width='75%'>
+        <figcaption>Fig.4: The Counter type (Actual Model) from the FsCheck example</figcaption>
+    </figure>
+
 <p>
 
-    The <b>Counter</b> type represents the Actual Model and is just a wrapper around a stored mutable state  <b>int</b>, and has methods <b>Inc</b> and <b>Dec</b> which return the state.
+    The <b>Counter</b> type represents the Actual Model and is just a wrapper around a stored mutable state  <b>int</b>.  It has methods <b>Inc</b> and <b>Dec</b> which return the state after changing it.
     <p>
-<center><img src="./assets/spec.png" width='100%'></center>
+
+    <figure>
+        <img src="./assets/spec.png" width='75%'>
+        <figcaption>Fig.5: The Abstract Model from the FsCheck example</figcaption>
+    </figure>
+
+
 <p>
-    The main action in the example takes place in the Operations <b>inc</b> and <b>dec</b> shown above.<br>
-    Operations have a function <b>Run</b> which runs the Action on the test Model, and a method <b>Check</b> which runs it on the Actual System; and then compares the result with the results of the test model.
+    The main action in the FsCheck State Model example takes place in the Operations <b>inc</b> and <b>dec</b> shown above.<br>
+    Operations have a <b>Run</b> function which runs the Action on the test Model, and a method <b>Check</b> which runs it on the Actual System; and then compares the result with the results of the test model.
   <p>
-    <b>Please note:</b><br> If you find Fsharp code syntax hard to decipher with (and are familiar with C), John Hughes has provided a simple example of testing a queue implemented as a circular buffer in C in <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>this</a> paper.  Perhaps you can read it before the FsCheck man page.
+    <b>Please note:</b><br> If you find Fsharp code syntax hard to decipher with (and are familiar with C), John Hughes has provided a simple example of testing a queue implemented as a circular buffer in C in <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>this</a> paper.
 
 <p>
 <h3>The Production System under test</h3>
 
-<center><img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/img/0SP.png" width='75%' style='border:1px solid'></center>
-
+    <figure>
+        <img src="https://raw.githubusercontent.com/TrivediEnterprisesInc/TrivediEnterprisesInc.github.io/refs/heads/main/img/0SP.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.6: The Desktop Model we are going to test</figcaption>
+    </figure>
 <p>
-The system we are currently testing is the Desktop Client UI of a Database System.<br>  The screenshot above shows how the Desktop window looks.  It is a Windows Form with a multiple document interface (MDI) <a href='https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.mdilayout?view=netframework-4.8.1'>layout</a>.  This allows the devoper to open multiple child windows, just like the Windows desktop opens a new window for each icon clicked.<p>
+The system we are currently testing is the Desktop Client UI of a Database System.  It is built in dotNet, which allows targetting the app to run on various desktops (Windows, Mac, Linux...)<p>
+    The screenshot above shows the Desktop window.  It is a Windows Form with a multiple document interface (MDI) <a href='https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.mdilayout?view=netframework-4.8.1'>layout</a>.  This allows a user to open multiple child windows, just like the Windows desktop opens a new window for each icon clicked.<p>
 The internal API for the Desktop UI element is as follows:<p>
 
 <table style="border-collapse: collapse;width:100%;border: 2px solid black;">
-    <caption><center><h4>Desktop API</h4></center></caption>
+    <caption><center><h4>Fig.7: The Desktop API</h4></center></caption>
   <tr style="border-bottom: 2px solid black;border-top: 2px solid black;">
     <th style="width:20%;">API Call</th>
     <th style="width:40%;">Trigger</th>
@@ -325,34 +335,48 @@ The internal API for the Desktop UI element is as follows:<p>
 <p>
   For this article, we shall only be working with and testing the <b>AddIcon()</b> and <b>RemoveIcon()</b> API calls.<p>
 
-This functionality seems to be an ideal mapping of the model(s) in the FsCheck example to the Database System: instead of incrementing or decrementing a Counter, we will be adding/removing icons to a UI window.
+The <b>AddIcon()</b> and <b>RemIcon()</b> functions are an ideal mapping of the model(s) in the FsCheck example to the Database System: instead of incrementing or decrementing a Counter, we will be adding/removing icons to a UI window.  The final state in each test will be a representation of the Desktop after running operations.
 <p>
   The approach being taken here is a baby step; once we get it working and have "tested the test setup" we can proceed to build more complicated Models and test other API calls, interleave calls, run them in batches, sequentially or in parallel, etc.
   <p>
 
 <h3>A Note about the Production System</h3>
 <p>
-<center><img src="./assets/tuple.png" width='75%' style='border:1px solid'></center>
+
+    <figure>
+        <img src="./assets/tuple.png" width='75%' style='border:1px solid'>
+        <figcaption>Fig.8: The int becomes a tuple</figcaption>
+    </figure>
+
   <p>
 For the test we are going to pass a 3-parameter tuple to the <b>DskStateMachine</b> ctor shown in the image above.
 <p>
   The real system uses many more parameters, including: 
   <ul>
     <li><b>TableState</b> (DateTimeTableLastAccessed, DatabaseQueryString, UserMarkedRecords, ...)</li>
-    <li><b>SessionState</b> (ClientType, LoginDateTime, AuthData, ...)</li>
     <li><b>UserState</b> (UserName, LicenseType, ClientID, ...)</li>
+    <li><b>SessionState</b> (ClientType, LoginDateTime, AuthData, ...)</li>
   </ul>
   <p>
     The production system persists this state in a <b>Desktop.brj</b> file (sort of like Desktop.ini in Windows but binary) which is synched to the Backend Server.
     <p>
     Most of these extra parameters are irrelevant to our test (which only tests the icons) so instead of calling the production ctor I'll be calling a curried function which will fill in the missing parameters with default values.
     <p>
-      Please also note that because the production system is commercial/copyrighted I can't share any proprietory code.  However, the gist <a href='https://google.com'>here</a> contains working code; I shall share the <b>results</b> of running the test on production and you shall have enough to customize the models and types to your own application.
+      Please also note that because the production system is commercial/copyrighted I can't share any proprietory code behind the UI.  However, the gist <a href='https://google.com'>here</a> contains working code you can compile and run; plus I shall share the <b>results</b> of running the test on production and you shall have enough to customize the models and types to your own application.
       <p>
 
 
 <h3>Hacking the FsCheck Example</h3>
-  We are now ready to hack the example to incorporate our desired changes.
+  We are now ready to hack the FsCheck State Machine example to incorporate our desired changes.
+
+Machine
+
+Setup
+
+Ops
+
+
+
 <br>
 <h3>Connecting 2 the Production System</h3>
   Dir of snaps, move 2 end
