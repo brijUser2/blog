@@ -1,4 +1,3 @@
-
 <!DOCTYPE html> 
 <html>
 <head>
@@ -59,8 +58,9 @@
       text-align: left;
   }
   figcaption {
-      font-style: italic;
-      color: #555;
+	font-style: italic;
+	color: #555;
+    	text-align: center;
   }
 
 	</style>
@@ -132,9 +132,9 @@ Every once in a while, something new comes out of the world of Functional Progra
 <p>
 Here's the typical reaction from (even a Senior) developer, one with some FP exposure:<br>
 <ul><li>
-The developer will read something and say <i>"What?"</i>  Then he'll go silent and glassy-eyed.
+The developer will read something and say "Wait, <i>what</i>?"  Then he'll go silent and glassy-eyed.
 </li><li>After a few more minutes of reading, the developer will emit a low whistle.<br>
-</li><li>Finally he'll say: "How is that even <i>possible</i>?
+</li><li>Finally he'll say: "How is that even <i>possible</i>?"
 </li></ul>
 
 I felt that way when I first read about FSharp Type Providers (see <a href='https://fsprojects.github.io/FSharp.Data/library/CsvProvider.html#Introducing-the-provider'>this</a>, <a href='https://fsprojects.github.io/FSharp.Data/library/JsonProvider.html#Introducing-the-provider'>this</a> and <a href='https://learn.microsoft.com/en-us/dotnet/fsharp/tutorials/type-providers/'>this</a>).  
@@ -145,6 +145,7 @@ I felt that way when I first read about FSharp Type Providers (see <a href='http
 <h3>Avoid the heavy Lifting</h3>
 In this article I am assuming zero FP knowledge.  You might be working in 
 C# and using the FsCheck dotNet library, or any other flavor of QuickCheck.  <br>
+You need no knowledge of <s>Monads</s> <s>Burritos</s> Syntactical Sugar: you'll merely be <i>using</i> those mighty abstractions.<br>
 I will show you how to create a State Machine Model mapping your API to  use FsCheck to autoGenerate and run tests.
 <p>
 
@@ -158,7 +159,7 @@ tests.  You just set it up, give it a property to test and it's almost as if  te
 	<center></center>
 <p>
 
-Here is how <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>John Hughes</a>, one of QuickCheck's original developers, describes the library:<p>
+Here is how the stellar <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>John Hughes</a> - one of QuickCheck's original developers - describes the library:<p>
 
 <figure class="quote">
   <blockquote>
@@ -210,7 +211,7 @@ Reading these two short articles will help you in your first attempt at PBT:
 Testing the Hard Stuff and Staying Sane</li>
   <li>FsCheck Docs: <a href='https://fscheck.github.io/FsCheck//StatefulTestingNew.html'>Model</a>-based Testing</li>
 </ol>
-I found both of these two be an easy read.
+I found both of these to be an easy read.
 <p>
 <h3>State-Model Based Testing</h3>
 
@@ -241,13 +242,14 @@ The figure below shows John Hughes' model adapted to the FsCheck example (of a c
         <figcaption>Fig.3: A sample test case for the FsCheck example</figcaption>
     </figure>
 <p>
-You should by now have a clear understanding of the mechanics of building a State Machine Model.  If you still need clarification I suggest reading Grant Slatton's <a href='https://grantslatton.com/rowzero-property-testing'>excellent</a> PBT article (Grant used PBT to formally test the S3 filesystem at AWS).  His examples use Rust but his tips on creating Models are awesome.
+You should by now have a clear understanding of the mechanics of building a State Machine Model.  If you still need clarification I suggest reading Grant Slatton's <a href='https://grantslatton.com/rowzero-property-testing'>excellent</a> PBT article (Grant used PBT to formally test the S3 filesystem at AWS).  His examples 
+	use Rust but he provides awesome tips on creating Models for a full-featured app (a Spreadsheet).
 <p>
 
 <h3>A closer look at the FsCheck State Model Test example</h3>
   Like all good FSharp code, the Model-Based example shown in the <a href='https://fscheck.github.io/FsCheck/StatefulTestingNew.html'>man page</a> is terse but complete.<p>
     The entire test is just about 25 lines of code, but there is a lot happening.<br>
-    For those new to FSharp syntax, you can still figure out what's going, but you might need to read the man page slowly (especially the documentation part)
+    For those new to FSharp syntax, you can still figure out what's going on, but you might need to read the man page slowly (especially the documentation part)
 <p>
       There are only three important types used in the example:<br>
       <ul>
@@ -270,7 +272,7 @@ You should by now have a clear understanding of the mechanics of building a Stat
 
 <p>
 
-    The <b>Counter</b> type represents the Actual Model and is just a wrapper around a stored mutable state  <b>int</b>.  It has methods <b>Inc</b> and <b>Dec</b> which return the state after changing it.
+    In the FsCheck State Model Example, the <b>Counter</b> type represents the Actual Model and is just a wrapper around a stored mutable state  <b>int</b>.  It has methods <b>Inc</b> and <b>Dec</b> which return the state after changing it.
     <p>
 
     <figure>
@@ -281,7 +283,7 @@ You should by now have a clear understanding of the mechanics of building a Stat
 
 <p>
     The main action in the FsCheck State Model example takes place in the Operations <b>inc</b> and <b>dec</b> shown above.<br>
-    Operations have a <b>Run</b> function which runs the Action on the Abstract Model, and a method <b>Check</b> which runs it on the Actual Model; and then compares the result with the results of the test model.
+    Operations have a <b>Run</b> function which runs the Action on the Abstract Model, and a method <b>Check</b> which runs it on the Actual Model; and then compares the result with the results of the Abstract Model.
   <p>
     <b>Please note:</b><br> If you find Fsharp code syntax hard to decipher (and are familiar with C), John Hughes has provided a simple example of testing a queue implemented as a circular buffer in C in <a href='https://www.cs.tufts.edu/~nr/cs257/archive/john-hughes/quviq-testing.pdf'>this</a> paper.
 
@@ -293,7 +295,7 @@ You should by now have a clear understanding of the mechanics of building a Stat
         <figcaption>Fig.6: The Desktop Model we are going to test</figcaption>
     </figure>
 <p>
-The system we are currently testing is the Desktop Client UI of a Database System.  It is built in dotNet, which allows targetting the app to run on various desktops (Windows, Mac, Linux...)<p>
+The system we are currently testing is the Desktop Client UI of a Database System.  It is built in dotNet, which allows targeting the app to run on various desktops (Windows, Mac, Linux...)<p>
     The screenshot above shows the Desktop window.  It is a Windows Form with a multiple document interface (MDI) <a href='https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.mdilayout?view=netframework-4.8.1'>layout</a>.  This allows a user to open multiple child windows, just like the Windows desktop opens a new window for each icon clicked.<p>
 The internal API for the Desktop UI element is as follows:<p>
 
@@ -303,6 +305,11 @@ The internal API for the Desktop UI element is as follows:<p>
     <th style="width:20%;">API Call</th>
     <th style="width:40%;">Trigger</th>
     <th>Desc</th>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
+    <td>InitDesktop()</td>
+    <td>Launch app &gt;&gt; Successfully login</td>
+    <td>Restores the state of the Desktop to that of the prior session</td>
   </tr>
   <tr style="border-bottom: 1px solid black;">
     <td>AddIcon()</td>
@@ -335,6 +342,11 @@ The internal API for the Desktop UI element is as follows:<p>
     <td>Allows the user to switch to an open Child Window</td>
   </tr>
   <tr style="border-bottom: 1px solid black;">
+    <td>Logout()</td>
+    <td>File|Exit</td>
+    <td>Saves Desktop State (openWindows etc.) on server</td>
+  </tr>
+  <tr style="border-bottom: 1px solid black;">
     <td>...()</td>
     <td>...</td>
     <td>(many other UI API calls excluded)</td>
@@ -353,14 +365,15 @@ The <b>AddIcon()</b> and <b>RemIcon()</b> functions are an ideal mapping of the 
 
     <figure>
         <img src="https://brijuser2.github.io/blog/assets/tuple.png" width='75%' style='border:1px solid'>
-        <figcaption>Fig.8: The int becomes a tuple</figcaption>
+        <figcaption>Fig.8: The int becomes a tuple list</figcaption>
     </figure>
 
   <p>
-For the test we are going to pass a 3-parameter tuple to the <b>DskStateMachine</b> ctor shown in the image above.
+For the test we are going to pass a 3-parameter tuple list to the <b>DskStateMachine</b> ctor shown in the image above.
 <p>
   The real system uses many more parameters, including: 
   <ul>
+    <li><b>OpenWindows</b> (TableName, TableState, ...)</li>
     <li><b>TableState</b> (DateTimeTableLastAccessed, DatabaseQueryString, UserMarkedRecords, ...)</li>
     <li><b>UserState</b> (UserName, LicenseType, ClientID, ...)</li>
     <li><b>SessionState</b> (ClientType, LoginDateTime, AuthData, ...)</li>
@@ -368,9 +381,14 @@ For the test we are going to pass a 3-parameter tuple to the <b>DskStateMachine<
   <p>
     The production system persists this state in a <b>Desktop.brj</b> file (sort of like Desktop.ini in Windows but binary) which is synched to the Backend Server.
     <p>
-    Most of these extra parameters are irrelevant to our test (which only tests the icons) so instead of calling the production ctor I'll be calling a curried function which will fill in the missing parameters with default values and return an actual Desktop object.
+    Most of these extra parameters are irrelevant to our test (which only tests the icons) so instead of calling 
+the production ctor I'll be calling a curried function which will fill in the missing parameters with 
+default (or mock) values, and return an actual Desktop object.
     <p>
-      Please also note that because the production system is commercial/copyrighted I can't share any proprietory code behind the UI.  However, the gist <a href='https://google.com'>here</a> contains working code you can compile and run; plus I shall share the <b>results</b> of running the test on production and you shall have enough to customize the models and types to your own application.
+      Please also note that because the production system is commercial/copyrighted I can't share 
+any proprietory code behind the UI.  However, the gist <a href='https://google.com'>here</a> contains working 
+code you can compile and run; plus I shall share the <b>results</b> of running the test on production; 
+	    so you shall have enough to customize the models and types to your own application.
       <p>
 
 
@@ -397,14 +415,16 @@ Some notes:
 <ul>
 <li>Instead of <b>initialValue</b> being an <b>int</b> we are using <b>baseIconLi</b> (a list of standard Desktop icons) as the initial state.
 </li><li>
-The example <b>Machine.Next()</b> (Line 00 on the left) just alternates randomly between <b>inc</b> and <b>dec</b> as the next function call.  (See the man page for <b>Gen.<a href=''>elements</a></b><br>
+In the example, <b>Machine.Next()</b> (Line 00 on the left) just alternates randomly 
+	between <b>inc</b> and <b>dec</b> as the next function call.  (See the man page for <b>Gen.<a href=''>elements</a></b>)
+	<br>
 Our customization (line 00 on the right) uses <b>Gen.frequency</b> instead; which will return two <b>addIcn</b>s for each <b>remIcn</b><br>
 Why did we do that?  Because we need to test what happens when we add lots of icons to the Desktop (Is the layout correct?  Does a scrollbar appear when necessary?)
 </li><li>
 The only other customization in the <b>Next()</b> function is that we're actually passing an icon (randomly chosen) to the <b>addIcn</b> and <b>remIcn</b> functions.<br>
 Please note that in the example on the left, <b>inc</b> and <b>dec</b> don't need a parameter.
 <br>
-The reason we're choosing the icons here (verses picking them in the <b>Operation</b>s) is to ensure that different values don't get sent to the <b>Actual</b> and <b>Abstract</b> models, since that would cause the <b>Check</b>s and the test to fail.
+The reason we're supplying the icons here (verses picking them in the <b>Operation</b>s) is to ensure that different values don't get sent to the <b>Actual</b> and <b>Abstract</b> models, since that would cause the <b>Check</b>s and the test to fail.
 </li></ul>
 <p>
 
@@ -426,7 +446,7 @@ This article is intended for use by all possible readers - some of whom will be 
 <li>
 Line 00 in fig. 9 returns a new <b>Machine</b>, and the curly braces around the ctor simply indicate an <a href='https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/object-expressions'>Object Expression</a>.
 </li><li>
-And in Lines 00 and 00, the <b>gen</b> statements with curly braces indicate that <b>gen</b> is a <s>Monad</s> <s>Burrito</s> <a href='https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions'>Computation Expression></a>.
+And in Lines 00 and 00, the <b>gen</b> statements with curly braces indicate that <b>gen</b> is a <s>Monad</s> <s>Burrito</s> <a href='https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions'>Computation Expression</a>.
 </li>
 </ul>
 <p>
@@ -440,7 +460,7 @@ Since the Operations are now returning a Desktop (not a model); in line 00 to th
 <h4>A Trial Run</h4>
 At this point all required changes are in place and we are ready to take our customizations for a spin.
 <br>
-To recreate the setup:
+To setup the test environment:
 <ul>
 <li>I downloaded dotNet 10 from <a href='https://github.com/dotnet/sdk/blob/main/documentation/package-table.md'>here</a> and decompressed the file to the directory shown in the video above.
 </li><li>
@@ -482,18 +502,15 @@ and we see that a new one has been added at the end...
 <p>
 <h4>Connecting to the Production System</h4>
 
-So, at this point you are probably thinking "How do we get to actually see thousands of Desktop windows being created?"
+So, at this point you are probably thinking "How do we get to actually see hundreds of Desktop windows being created?"
 <br>
 We do need to examine at least a few Desktops to visually check the test outcome (plus verify 
 the scrollbar behavior etc.)
 <br>
 We can add a call to the Desktop ctor in the <b>Check</b> method of an operation.
 <br>
-Surprisingly, doing that won't generate a hundred screenshots, but 1500.  Why?  Because FsCheck runs (random amount, average 15) addIcons and remIcons for one test case.
-<br>
-But if we create so many Windows won't the system crash?  Possibly.
-<br>
-Fortunately, dotNet is a mature framework, and WinForms (which the Production System uses) is even older.  I know of an <a href=''>obscure API call</a> which lets us take a snapshot of <i>any</i> Control, and save it as a graphic file.
+Fortunately, dotNet is a mature framework, and WinForms (which the Production System uses) is even older.  I 
+know of an <a href=''>obscure API call</a> which lets us take a snapshot of <i>any</i> Control - <i>even if it isn't showing</i> - and save it as a graphic file.
 <br>
 fig. 14.  Form derives from Control
 <br>
@@ -512,7 +529,7 @@ These pages link to <b>many</b> good resources on PBT using <a href='https://hac
 <p>
 Some additional reading I found useful:
 <ul>
-  <li><a href='https://fsharpforfunandprofit.com/posts/property-based-testing-2/'>Choosing properties</a> for property-based testing</li>
+  <li>Schott Wlaschin's <a href='https://fsharpforfunandprofit.com/posts/property-based-testing-2/'>Choosing properties</a> for PBT</li>
   <li>PBT <a href='https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html'>patterns</a></li>
   <li>Haskell SUT state-machine testing <a href="https://github.com/stevana/property-based-testing-stateful-systems-tutorial/tree/main">tutorial</a></li>
   <li>Property-Based Testing Against a Model of a <a href='https://concerningquality.com/model-based-testing/'>Web</a> Application</li>
